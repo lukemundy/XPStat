@@ -94,6 +94,7 @@ function XPStat:UpdateTooltip()
 
 	GameTooltip:AddDoubleLine("Total XP gained:",			string.format("%d", XPStat.gainedXP), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("XP gained per hour:",		string.format("%d XP/hr", XPStat:xp_per_hour()), 1,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine("Time to level up:",			string.format("%s", FormatDuration(XPStat:time_to_level())), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("Session start time:", 		string.format("%s", date('%c', XPStat.sessionStart)), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("Session length:", 			string.format("%s", FormatDuration(XPStat.time)), 1,1,1, 1,1,1)
 	GameTooltip:Show()
@@ -154,10 +155,16 @@ function XPStat:xp_per_hour()
 	return self.gainedXP / (self.time / 3600)
 end
 
+function XPStat:time_to_level()
+	return (UnitXPMax('player') - UnitXP('player')) / self:xp_per_hour() * 3600
+end
+
 -------------------------------------------------------------------------------
 -- Miscellaneous helper functions
 -------------------------------------------------------------------------------
 function FormatDuration(t)
+	if t <= 0 then return 'n/a' end
+	
 	local str = {}
 
 	local days = floor(t / 86400)
