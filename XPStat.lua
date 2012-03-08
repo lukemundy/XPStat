@@ -97,6 +97,8 @@ function XPStat:UpdateTooltip()
 	GameTooltip:AddDoubleLine("Time to level up:",			string.format("%s", FormatDuration(XPStat:time_to_level())), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("Session start time:", 		string.format("%s", date('%c', XPStat.sessionStart)), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("Session length:", 			string.format("%s", FormatDuration(XPStat.time)), 1,1,1, 1,1,1)
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine("|Cff00ff00Left-click|r to reset session.")
 	GameTooltip:Show()
 end
 
@@ -156,6 +158,7 @@ function XPStat:xp_per_hour()
 end
 
 function XPStat:time_to_level()
+	if (self:xp_per_hour() <= 0) then return 0 end
 	return (UnitXPMax('player') - UnitXP('player')) / self:xp_per_hour() * 3600
 end
 
