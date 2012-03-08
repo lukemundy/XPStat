@@ -1,7 +1,7 @@
 ## Interface: 40300
 ## Title: XPStat
 ## Author: Boak (Frostmourne-US)
-## Version: v1.0 (Alpha)
+## Version: v1.0 (Beta)
 ## Notes: Provides a a LDB mod showing experience rate + other experience stats.
 ## SavedVariables: XPStatDB
 
