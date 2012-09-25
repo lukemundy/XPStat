@@ -1,4 +1,4 @@
-## Interface: 40300
+## Interface: 50001
 ## Title: XPStat
 ## Author: Boak (Frostmourne-US)
 ## Version: v1.0 (Beta)
