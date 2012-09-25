@@ -28,7 +28,7 @@ local options = {
 
 function XPStat:OnInitialize()
 	-- This AddOn is useless on max-level characters, so we disable it
-	if UnitLevel('player') == 85 then
+	if UnitLevel('player') == 90 then
 		self:Print("You are max level! XPStats will now disable itself...")
 		self:SetEnabledState(false)
 		return
@@ -118,7 +118,7 @@ function XPStat:CreateLDB()
 				GameTooltip:SetOwner(self, "ANCHOR_NONE")
 				GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
 				XPStat:UpdateTooltip()
-				XPStat.showTooltip = true			
+				XPStat.showTooltip = true
 			end,
 			OnLeave = function(self)
 				XPStat.showTooltip = false
@@ -167,7 +167,7 @@ end
 -------------------------------------------------------------------------------
 function FormatDuration(t)
 	if t <= 0 then return 'n/a' end
-	
+
 	local str = {}
 
 	local days = floor(t / 86400)
