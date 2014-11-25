@@ -28,8 +28,8 @@ local options = {
 
 function XPStat:OnInitialize()
 	-- This AddOn is useless on max-level characters, so we disable it
-	if UnitLevel('player') == 90 then
-		self:Print("You are max level! XPStats will now disable itself...")
+	if UnitLevel('player') == GetMaxPlayerLevel() then
+		self:Print("You are max level! XPStat will now disable itself...")
 		self:SetEnabledState(false)
 		return
 	end
