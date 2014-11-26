@@ -34,7 +34,7 @@ function XPStat:OnInitialize()
 		return
 	end
 
-	self:Print("XPStat ".. GetAddOnMetadata("XPStat", "Version") .."\nAuthor: ".. GetAddOnMetadata("XPStat", "Author"))
+	self:Print("XPStat ".. GetAddOnMetadata("XPStat", "Version") .." by ".. GetAddOnMetadata("XPStat", "Author"))
 
 	-- Set up SavedVariables, Config and Profiles
 	self.db_root = LibStub("AceDB-3.0"):New("XPStatDB")
@@ -81,7 +81,7 @@ end
 
 function XPStat:Update()
 	self.time = self.time + 1
-	self.ldb.text = format("%d XP/hr", self:xp_per_hour())
+	self.ldb.text = format("%s XP/hr", format_thousand(self:xp_per_hour()))
 
 	if self.showTooltip then self:UpdateTooltip() end
 end
@@ -92,8 +92,8 @@ function XPStat:UpdateTooltip()
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine("Current XP stats:")
 
-	GameTooltip:AddDoubleLine("Total XP gained:",			string.format("%d", XPStat.gainedXP), 1,1,1, 1,1,1)
-	GameTooltip:AddDoubleLine("XP gained per hour:",		string.format("%d XP/hr", XPStat:xp_per_hour()), 1,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine("Total XP gained:",			string.format("%s", format_thousand(XPStat.gainedXP)), 1,1,1, 1,1,1)
+	GameTooltip:AddDoubleLine("XP gained per hour:",		string.format("%s XP/hr", format_thousand(XPStat:xp_per_hour())), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("Time to level up:",			string.format("%s", FormatDuration(XPStat:time_to_level())), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("Session start time:", 		string.format("%s", date('%c', XPStat.sessionStart)), 1,1,1, 1,1,1)
 	GameTooltip:AddDoubleLine("Session length:", 			string.format("%s", FormatDuration(XPStat.time)), 1,1,1, 1,1,1)
@@ -182,4 +182,11 @@ function FormatDuration(t)
 	if seconds > 0 then table.insert(str, format("%d s", seconds)) end
 
 	return table.concat(str, ", ")
+end
+
+function format_thousand(v)
+    local s = string.format("%d", math.floor(v))
+    local pos = string.len(s) % 3
+    if pos == 0 then pos = 3 end
+    return string.sub(s, 1, pos) .. string.gsub(string.sub(s, pos+1), "(...)", ",%1")
 end
