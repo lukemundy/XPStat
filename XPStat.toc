@@ -1,7 +1,7 @@
 ## Interface: 60000
 ## Title: XPStat
 ## Author: Mundy (Frostmourne-US)
-## Version: v1.1
+## Version: v1.3-release
 ## Notes: Provides a LDB mod showing experience rate + other experience stats.
 ## SavedVariables: XPStatDB
 
